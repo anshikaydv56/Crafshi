@@ -62,7 +62,7 @@ export const products: Product[] = [
     id: 3,
     name: "Madhubani Painted Bowl",
     price: 4500,
-    image: "https://images.pexels.com/photos/2960010/pexels-photo-2960010.jpeg",
+    image: "",
     category: "pottery",
     description: "Ceramic bowl with authentic Madhubani fish motifs",
     seller: "Sita Devi",
