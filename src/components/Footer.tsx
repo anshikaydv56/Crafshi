@@ -56,9 +56,9 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/contact" className="text-amber-200 hover:text-amber-100 transition-colors">
+                <a href="#contact" className="text-amber-200 hover:text-amber-100 transition-colors">
                   Contact
-                </Link>
+                </a>
               </li>
               <li>
                 <Link to="/artisans" className="text-amber-200 hover:text-amber-100 transition-colors">
@@ -106,7 +106,8 @@ const Footer = () => {
           </div>
 
           {/* Contact Info */}
-          <div className="space-y-6">
+          {/* ✅ Yaha id="contact" add kiya gaya hai */}
+          <div className="space-y-6" id="contact">
             <h3 className="text-xl font-playfair font-bold text-amber-100">Contact Us</h3>
             <div className="space-y-4">
               <div className="flex items-start space-x-3">

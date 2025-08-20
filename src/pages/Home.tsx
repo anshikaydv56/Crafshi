@@ -7,19 +7,19 @@ const Home = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const heroImages = [
     'https://images.pexels.com/photos/1090638/pexels-photo-1090638.jpeg',
-    'https://images.pexels.com/photos/8832878/pexels-photo-8832878.jpeg',
-    'https://images.pexels.com/photos/1090641/pexels-photo-1090641.jpeg',
+    'https://static.vecteezy.com/system/resources/thumbnails/040/723/068/small_2x/ai-generated-brown-bamboo-weave-texture-a-nature-background-with-handicraft-charm-ai-generated-photo.jpg',
+    'https://img.freepik.com/premium-photo/traditional-mexican-pottery-ceramics-wallpaper_987764-24770.jpg',
     'https://images.pexels.com/photos/1191531/pexels-photo-1191531.jpeg',
-    'https://images.pexels.com/photos/1119799/pexels-photo-1119799.jpeg'
+    'https://static.vecteezy.com/system/resources/previews/036/595/006/large_2x/ai-generated-craft-shop-advertisment-background-with-copy-space-free-photo.jpg'
   ];
 
   const categories = [
-    { name: 'Pottery', image: 'https://images.pexels.com/photos/1090638/pexels-photo-1090638.jpeg', count: products.filter(p => p.category === 'pottery').length },
-    { name: 'Textiles', image: 'https://images.pexels.com/photos/8832878/pexels-photo-8832878.jpeg', count: products.filter(p => p.category === 'textiles').length },
-    { name: 'Jewelry', image: 'https://images.pexels.com/photos/1191531/pexels-photo-1191531.jpeg', count: products.filter(p => p.category === 'jewelry').length },
-    { name: 'Woodwork', image: 'https://images.pexels.com/photos/1090644/pexels-photo-1090644.jpeg', count: products.filter(p => p.category === 'woodwork').length },
-    { name: 'Metalcraft', image: 'https://images.pexels.com/photos/4792489/pexels-photo-4792489.jpeg', count: products.filter(p => p.category === 'metalcraft').length },
-    { name: 'Paintings', image: 'https://images.pexels.com/photos/1119799/pexels-photo-1119799.jpeg', count: products.filter(p => p.category === 'paintings').length }
+    { name: 'Pottery', image: 'https://static.vecteezy.com/system/resources/previews/026/449/716/non_2x/vibrant-colors-shape-traditional-ceramics-a-celebration-of-nature-indoors-generated-by-ai-free-photo.jpg', count: products.filter(p => p.category === 'pottery').length },
+    { name: 'Textiles', image: 'https://img.freepik.com/free-photo/vibrant-fashion-textile-pattern-collection-display-generative-ai_188544-9090.jpg', count: products.filter(p => p.category === 'textiles').length },
+    { name: 'Jewelry', image: 'https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/b43f6e61015173.5a607b3182a5a.jpg', count: products.filter(p => p.category === 'jewelry').length },
+    { name: 'Woodwork', image: 'https://wallpaperaccess.com/full/3165485.jpg', count: products.filter(p => p.category === 'woodwork').length },
+    { name: 'Metalcraft', image: 'https://tse2.mm.bing.net/th/id/OIP.YGNwVYUmlDDM4nnqnZif_wHaHa?r=0&w=800&h=800&rs=1&pid=ImgDetMain&o=7&rm=3', count: products.filter(p => p.category === 'metalcraft').length },
+    { name: 'Paintings', image: 'https://tse3.mm.bing.net/th/id/OIP.zm9FyhyU17lXh1-xbku38gHaEK?r=0&rs=1&pid=ImgDetMain&o=7&rm=3', count: products.filter(p => p.category === 'paintings').length }
   ];
 
   const featuredProducts = products.slice(0, 8);
@@ -105,47 +105,34 @@ const Home = () => {
       </section>
 
       {/* Categories Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl lg:text-5xl font-playfair font-bold text-amber-900 mb-4">
-              Discover Our Collections
-            </h2>
-            <p className="text-xl text-amber-700 max-w-3xl mx-auto">
-              Each piece tells a story of craftsmanship passed down through generations
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {categories.map((category, index) => (
-              <Link
-                key={category.name}
-                to={`/category/${category.name.toLowerCase()}`}
-                className="group relative overflow-hidden rounded-2xl hover-lift"
-                style={{ animationDelay: `${index * 100}ms` }}
-              >
-                <div className="aspect-w-16 aspect-h-12 relative">
-                  <img
-                    src={category.image}
-                    alt={category.name}
-                    className="w-full h-80 object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
-                  <div className="category-overlay absolute inset-0 bg-amber-600/30"></div>
-                </div>
-                <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                  <h3 className="text-2xl font-playfair font-bold mb-2">{category.name}</h3>
-                  <p className="text-amber-100">{category.count} unique pieces</p>
-                  <div className="mt-3 flex items-center text-amber-200 group-hover:text-white transition-colors">
-                    <span className="mr-2">Explore Collection</span>
-                    <ArrowRight className="h-4 w-4 transform group-hover:translate-x-2 transition-transform" />
-                  </div>
-                </div>
-              </Link>
-            ))}
-          </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+  {categories.map((category, index) => (
+    <Link
+      key={category.name}
+      to={`/category/${category.name.toLowerCase()}`}
+      className="group relative overflow-hidden rounded-2xl hover-lift"
+      style={{ animationDelay: `${index * 100}ms` }}
+    >
+      <div className="aspect-w-16 aspect-h-12 relative">
+        <img
+          src={category.image}
+          alt={category.name}
+          className="w-full h-80 object-cover transition-transform duration-700 group-hover:scale-110"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+        <div className="category-overlay absolute inset-0 bg-amber-600/30"></div>
+      </div>
+      <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+        <h3 className="text-2xl font-playfair font-bold mb-2">{category.name}</h3>
+        <p className="text-amber-100">{category.count} unique pieces</p>
+        <div className="mt-3 flex items-center text-amber-200 group-hover:text-white transition-colors">
+          <span className="mr-2">Explore Collection</span>
+          <ArrowRight className="h-4 w-4 transform group-hover:translate-x-2 transition-transform" />
         </div>
-      </section>
+      </div>
+    </Link>
+  ))}
+</div>
 
       {/* Featured Products */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-amber-50/50 to-orange-50/50">
@@ -240,7 +227,7 @@ const Home = () => {
             </div>
             <div className="relative">
               <img
-                src="https://images.pexels.com/photos/5797999/pexels-photo-5797999.jpeg"
+                src="https://png.pngtree.com/thumb_back/fw800/background/20231226/pngtree-assorted-ceramic-vases-and-abstract-doodle-objects-exploring-pottery-through-various-image_13878826.png"
                 alt="Artisan at work"
                 className="w-full rounded-2xl shadow-2xl"
               />
