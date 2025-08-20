@@ -56,6 +56,7 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
+                {/* Scrolls to footer contact */}
                 <a href="#contact" className="text-amber-200 hover:text-amber-100 transition-colors">
                   Contact
                 </a>
@@ -106,7 +107,6 @@ const Footer = () => {
           </div>
 
           {/* Contact Info */}
-          {/* ✅ Yaha id="contact" add kiya gaya hai */}
           <div className="space-y-6" id="contact">
             <h3 className="text-xl font-playfair font-bold text-amber-100">Contact Us</h3>
             <div className="space-y-4">
@@ -165,7 +165,7 @@ const Footer = () => {
             <div className="flex space-x-6 text-sm">
               <Link to="/privacy" className="text-amber-200 hover:text-amber-100 transition-colors">
                 Privacy Policy
-              </Link>
+              </Link>  
               <Link to="/terms" className="text-amber-200 hover:text-amber-100 transition-colors">
                 Terms of Service
               </Link>
