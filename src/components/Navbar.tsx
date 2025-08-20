@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import { ShoppingCart, User, Search, Menu, X, Sparkles } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
@@ -61,19 +62,22 @@ const Navbar = () => {
                 </div>
               </div>
             </div>
-
-            <button 
+          
+            {/* ✅ About page link */}
+            <Link 
+              to="/about"
               className="text-amber-800 hover:text-amber-600 font-medium transition-all duration-300 hover:scale-105"
             >
               About
-            </button>
+            </Link>
 
             {/* ✅ Contact scroll button */}
             <a 
-            href="#contact"
-            className="text-amber-800 hover:text-amber-600 font-medium transition-all duration-300 hover:scale-105">
+              href="#contact"
+              className="text-amber-800 hover:text-amber-600 font-medium transition-all duration-300 hover:scale-105"
+            >
               Contact
-              </a>
+            </a>
           </div>
 
           {/* Right Side Icons */}
@@ -171,18 +175,20 @@ const Navbar = () => {
                   {category}
                 </Link>
               ))}
-              <button 
+              <Link 
+                to="/about"
                 className="block w-full text-left px-4 py-3 text-amber-800 hover:text-amber-600 hover:bg-amber-100/50 rounded-lg transition-all duration-200"
                 onClick={() => setIsMenuOpen(false)}
               >
                 About
-              </button>
-              <button 
+              </Link>
+              <a 
+                href="#contact"
                 className="block w-full text-left px-4 py-3 text-amber-800 hover:text-amber-600 hover:bg-amber-100/50 rounded-lg transition-all duration-200"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Contact
-              </button>
+              </a>
             </div>
           </div>
         )}
@@ -191,4 +197,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;                                                                                                                                
+export default Navbar;

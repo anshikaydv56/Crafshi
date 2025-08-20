@@ -57,7 +57,7 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                {/* 👇 Smooth scroll wala link */}
+                {/* 👇 Smooth scroll link */}
                 <a href="#contact" className="text-amber-200 hover:text-amber-100 transition-colors">
                   Contact
                 </a>
