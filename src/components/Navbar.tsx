@@ -1,8 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'; 
 import { Link, useNavigate } from 'react-router-dom';
 import { ShoppingCart, User, Search, Menu, X, Sparkles } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
+import { Link as ScrollLink } from "react-scroll";
+
+<li>
+  <ScrollLink
+    to="contact"
+    smooth={true}
+    duration={500}
+    offset={-70} // thoda upar se rukne ke liye
+    className="text-amber-200 hover:text-amber-100 transition-colors cursor-pointer"
+  >
+    Contact
+  </ScrollLink>
+</li>
+
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -18,6 +32,15 @@ const Navbar = () => {
   const handleLogout = () => {
     logout();
     navigate('/');
+  };
+
+  // ✅ Contact scroll function
+  const handleScrollToContact = () => {
+    const contactSection = document.getElementById("contact-section");
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: "smooth" });
+    }
+    setIsMenuOpen(false); // mobile menu close ho jaye
   };
 
   return (
@@ -67,7 +90,10 @@ const Navbar = () => {
             >
               About
             </button>
+
+            {/* ✅ Contact scroll button */}
             <button 
+              onClick={handleScrollToContact}
               className="text-amber-800 hover:text-amber-600 font-medium transition-all duration-300 hover:scale-105"
             >
               Contact
@@ -175,9 +201,11 @@ const Navbar = () => {
               >
                 About
               </button>
+
+              {/* ✅ Mobile Contact scroll button */}
               <button 
                 className="block w-full text-left px-4 py-3 text-amber-800 hover:text-amber-600 hover:bg-amber-100/50 rounded-lg transition-all duration-200"
-                onClick={() => setIsMenuOpen(false)}
+                onClick={handleScrollToContact}
               >
                 Contact
               </button>
