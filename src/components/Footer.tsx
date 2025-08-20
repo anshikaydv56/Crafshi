@@ -1,12 +1,13 @@
-import React from 'react';
+import React from 'react'; 
 import { Link } from 'react-router-dom';
 import { Sparkles, Mail, Phone, MapPin, Facebook, Instagram, Twitter, Youtube } from 'lucide-react';
 
 const Footer = () => {
   return (
-    <footer className="bg-gradient-to-br from-amber-900 via-amber-800 to-orange-900 text-white">
+    <footer className="bg-gradient-to-br from-amber-900 via-amber-800 to-orange-900 text-white scroll-smooth">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          
           {/* Brand Section */}
           <div className="space-y-6">
             <div className="flex items-center space-x-3">
@@ -56,7 +57,7 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                {/* Scrolls to footer contact */}
+                {/* 👇 Smooth scroll wala link */}
                 <a href="#contact" className="text-amber-200 hover:text-amber-100 transition-colors">
                   Contact
                 </a>
@@ -73,36 +74,12 @@ const Footer = () => {
           <div className="space-y-6">
             <h3 className="text-xl font-playfair font-bold text-amber-100">Categories</h3>
             <ul className="space-y-3">
-              <li>
-                <Link to="/category/pottery" className="text-amber-200 hover:text-amber-100 transition-colors">
-                  Pottery
-                </Link>
-              </li>
-              <li>
-                <Link to="/category/textiles" className="text-amber-200 hover:text-amber-100 transition-colors">
-                  Textiles
-                </Link>
-              </li>
-              <li>
-                <Link to="/category/jewelry" className="text-amber-200 hover:text-amber-100 transition-colors">
-                  Jewelry
-                </Link>
-              </li>
-              <li>
-                <Link to="/category/woodwork" className="text-amber-200 hover:text-amber-100 transition-colors">
-                  Woodwork
-                </Link>
-              </li>
-              <li>
-                <Link to="/category/metalcraft" className="text-amber-200 hover:text-amber-100 transition-colors">
-                  Metalcraft
-                </Link>
-              </li>
-              <li>
-                <Link to="/category/paintings" className="text-amber-200 hover:text-amber-100 transition-colors">
-                  Paintings
-                </Link>
-              </li>
+              <li><Link to="/category/pottery" className="text-amber-200 hover:text-amber-100 transition-colors">Pottery</Link></li>
+              <li><Link to="/category/textiles" className="text-amber-200 hover:text-amber-100 transition-colors">Textiles</Link></li>
+              <li><Link to="/category/jewelry" className="text-amber-200 hover:text-amber-100 transition-colors">Jewelry</Link></li>
+              <li><Link to="/category/woodwork" className="text-amber-200 hover:text-amber-100 transition-colors">Woodwork</Link></li>
+              <li><Link to="/category/metalcraft" className="text-amber-200 hover:text-amber-100 transition-colors">Metalcraft</Link></li>
+              <li><Link to="/category/paintings" className="text-amber-200 hover:text-amber-100 transition-colors">Paintings</Link></li>
             </ul>
           </div>
 
@@ -165,7 +142,7 @@ const Footer = () => {
             <div className="flex space-x-6 text-sm">
               <Link to="/privacy" className="text-amber-200 hover:text-amber-100 transition-colors">
                 Privacy Policy
-              </Link>  
+              </Link>
               <Link to="/terms" className="text-amber-200 hover:text-amber-100 transition-colors">
                 Terms of Service
               </Link>
