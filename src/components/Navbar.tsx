@@ -64,11 +64,11 @@ const Navbar = () => {
           
             {/* ✅ About page link */}
             <Link 
-              to="/about"
-              className="text-amber-800 hover:text-amber-600 font-medium transition-all duration-300 hover:scale-105"
+            to="/about"
+            className="text-amber-800 hover:text-amber-600 font-medium transition-all duration-300 hover:scale-105"
             >
               About
-            </Link>
+              </Link>
 
             {/* ✅ Contact scroll button */}
             <a 

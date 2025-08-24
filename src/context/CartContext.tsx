@@ -1,64 +1,108 @@
 import React, { createContext, useContext, useState } from 'react';
-import { Product } from '../data/products';
+import { cartAPI } from '../config/api.js';
 
-interface CartItem extends Product {
+interface CartItem {
+  id: number;
+  name: string;
+  price: number;
+  image: string;
+  seller: { name: string; location: string };
   quantity: number;
 }
 
 interface CartContextType {
   cartItems: CartItem[];
-  addToCart: (product: CartItem) => void;
-  removeFromCart: (productId: number) => void;
-  updateQuantity: (productId: number, quantity: number) => void;
+  addToCart: (productId: number, quantity?: number) => Promise<void>;
+  removeFromCart: (productId: number) => Promise<void>;
+  updateQuantity: (productId: number, quantity: number) => Promise<void>;
   getCartTotal: () => number;
-  clearCart: () => void;
+  clearCart: () => Promise<void>;
+  loading: boolean;
+  fetchCart: () => Promise<void>;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [loading, setLoading] = useState(false);
 
-  const addToCart = (product: CartItem) => {
-    setCartItems(prev => {
-      const existingItem = prev.find(item => item.id === product.id);
-      if (existingItem) {
-        return prev.map(item =>
-          item.id === product.id
-            ? { ...item, quantity: item.quantity + product.quantity }
-            : item
-        );
-      }
-      return [...prev, product];
-    });
-  };
-
-  const removeFromCart = (productId: number) => {
-    setCartItems(prev => prev.filter(item => item.id !== productId));
-  };
-
-  const updateQuantity = (productId: number, quantity: number) => {
-    if (quantity === 0) {
-      removeFromCart(productId);
-      return;
+  const fetchCart = async () => {
+    try {
+      const response = await cartAPI.get();
+      const formattedItems = response.data.items.map(item => ({
+        id: item.product._id,
+        name: item.product.name,
+        price: item.product.price,
+        image: item.product.images[0]?.url || '',
+        seller: item.product.seller,
+        quantity: item.quantity
+      }));
+      setCartItems(formattedItems);
+    } catch (error) {
+      console.error('Failed to fetch cart:', error);
     }
-    
-    setCartItems(prev =>
-      prev.map(item =>
-        item.id === productId
-          ? { ...item, quantity }
-          : item
-      )
-    );
+  };
+
+  const addToCart = async (productId: number, quantity = 1) => {
+    setLoading(true);
+    try {
+      await cartAPI.add(productId, quantity);
+      await fetchCart();
+    } catch (error) {
+      throw error;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const removeFromCart = async (productId: number) => {
+    setLoading(true);
+    try {
+      await cartAPI.remove(productId);
+      await fetchCart();
+    } catch (error) {
+      throw error;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const updateQuantity = async (productId: number, quantity: number) => {
+    setLoading(true);
+    try {
+      await cartAPI.update(productId, quantity);
+      await fetchCart();
+    } catch (error) {
+      throw error;
+    } finally {
+      setLoading(false);
+    }
   };
 
   const getCartTotal = () => {
     return cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
   };
 
-  const clearCart = () => {
-    setCartItems([]);
+  const clearCart = async () => {
+    setLoading(true);
+    try {
+      await cartAPI.clear();
+      setCartItems([]);
+    } catch (error) {
+      throw error;
+    } finally {
+      setLoading(false);
+    }
   };
+
+  // Fetch cart on mount
+  React.useEffect(() => {
+    const token = localStorage.getItem('crafshi_token');
+    if (token) {
+      fetchCart();
+    }
+  }, []);
 
   return (
     <CartContext.Provider value={{
@@ -67,7 +111,9 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
       removeFromCart,
       updateQuantity,
       getCartTotal,
-      clearCart
+      clearCart,
+      loading,
+      fetchCart
     }}>
       {children}
     </CartContext.Provider>

@@ -178,47 +178,47 @@ const Categories = () => {
 
             {/* Products Grid/List */}
             {viewMode === 'grid' ? (
-              <div className="product-grid">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {filteredProducts.map((product, index) => (
                   <Link
-                    key={product.id}
-                    to={`/product/${product.id}`}
-                    className="group glass-effect rounded-2xl overflow-hidden hover-lift custom-cursor"
-                    style={{ animationDelay: `${index * 50}ms` }}
+                  key={product.id}
+                  to={`/product/${product.id}`}
+                  className="group glass-effect rounded-2xl overflow-hidden hover-lift custom-cursor"
+                  style={{ animationDelay: `${index * 50}ms` }}
                   >
                     <div className="relative overflow-hidden">
                       <img
-                        src={product.image}
-                        alt={product.name}
-                        className="w-full h-64 object-cover transition-transform duration-700 group-hover:scale-110"
+                      src={product.image}
+                      alt={product.name}
+                      className="w-full h-64 object-cover transition-transform duration-700 group-hover:scale-110"
                       />
                       <div className="absolute top-4 right-4">
                         <span className="bg-gradient-to-r from-amber-500 to-orange-600 text-white px-3 py-1 rounded-full text-sm font-medium">
                           Premium
-                        </span>
-                      </div>
-                    </div>
-                    <div className="p-6">
-                      <h3 className="text-xl font-playfair font-semibold text-amber-900 mb-2 group-hover:text-amber-700 transition-colors">
-                        {product.name}
-                      </h3>
-                      <p className="text-amber-600 text-sm mb-3 line-clamp-2">{product.description}</p>
-                      <div className="flex items-center justify-between">
-                        <span className="text-2xl font-bold text-amber-800">₹{product.price.toLocaleString()}</span>
-                        <div className="flex items-center space-x-1">
-                          <Star className="h-4 w-4 fill-amber-400 text-amber-400" />
-                          <span className="text-sm text-amber-600">{product.rating}</span>
-                        </div>
-                      </div>
-                      <div className="mt-4 pt-4 border-t border-amber-200">
-                        <p className="text-xs text-amber-600">By {product.seller}</p>
-                        <p className="text-xs text-amber-500">{product.location}</p>
-                      </div>
-                    </div>
-                  </Link>
-                ))}
-              </div>
-            ) : (
+                          </span>
+                          </div>
+                          </div>
+                          <div className="p-6">
+                            <h3 className="text-xl font-playfair font-semibold text-amber-900 mb-2 group-hover:text-amber-700 transition-colors">
+                              {product.name}
+                              </h3>
+                              <p className="text-amber-600 text-sm mb-3 line-clamp-2">{product.description}</p>
+                              <div className="flex items-center justify-between">
+                                <span className="text-2xl font-bold text-amber-800">₹{product.price.toLocaleString()}</span>
+                                <div className="flex items-center space-x-1">
+                                  <Star className="h-4 w-4 fill-amber-400 text-amber-400" />
+                                  <span className="text-sm text-amber-600">{product.rating}</span>
+                                  </div>
+                                  </div>
+                                  <div className="mt-4 pt-4 border-t border-amber-200">
+                                    <p className="text-xs text-amber-600">By {product.seller}</p>
+                                    <p className="text-xs text-amber-500">{product.location}</p>
+                                    </div>
+                                    </div>
+                                    </Link>
+                                  ))}
+                                  </div>
+                                  ) : (
               <div className="space-y-6">
                 {filteredProducts.map((product, index) => (
                   <Link

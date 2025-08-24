@@ -8,6 +8,7 @@ import ProductDetail from './pages/ProductDetail';
 import Cart from './pages/Cart';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
+import About from './pages/About';
 import { CartProvider } from './context/CartContext';
 import { AuthProvider } from './context/AuthContext';
 import './App.css';
@@ -42,7 +43,8 @@ function App() {
           <div className="min-h-screen bg-white"> {/* bg-crafshi ko white kar diya */}
             <Navbar />
             <Routes>
-              <Route path="/" element={<Home />} />
+              <Route path="/" element={<Home />} /> 
+              <Route path="/about" element={<About />} /> 
               <Route path="/category/:category" element={<Categories />} />
               <Route path="/product/:id" element={<ProductDetail />} />
               <Route path="/cart" element={<Cart />} />
