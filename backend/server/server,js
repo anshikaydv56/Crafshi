@@ -8,6 +8,10 @@ const authRoutes = require("./routes/authRoutes");
 const userRoutes = require("./routes/userRoutes");
 const productRoutes = require("./routes/productRoutes");
 const orderRoutes = require("./routes/orderRoutes");
+const adminOrderRoutes = require('./routes/adminOrders');
+app.use('/api/admin/orders', adminOrderRoutes);
+
+
 
 
 const app = express();

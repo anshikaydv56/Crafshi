@@ -41,7 +41,7 @@ router.post('/register', [
       });
     }
 
-    // Create new user
+    // Create new user (password hashing handled in User model pre-save hook)
     const user = new User({ name, email, password, phone });
     await user.save();
 
@@ -88,7 +88,7 @@ router.post('/login', [
 
     const { email, password } = req.body;
 
-    // Find user by email
+    // Find user by email and include password field explicitly
     const user = await User.findOne({ email }).select('+password');
     if (!user) {
       return res.status(401).json({ 
@@ -97,7 +97,7 @@ router.post('/login', [
       });
     }
 
-    // Check password
+    // Check password using model instance method
     const isPasswordValid = await user.comparePassword(password);
     if (!isPasswordValid) {
       return res.status(401).json({ 

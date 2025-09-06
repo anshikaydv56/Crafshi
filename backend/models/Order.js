@@ -113,7 +113,7 @@ const orderSchema = new mongoose.Schema({
   timestamps: true
 });
 
-// Generate order number
+// Order number generate karne ka pre-save hook
 orderSchema.pre('save', async function(next) {
   if (!this.orderNumber) {
     const count = await mongoose.model('Order').countDocuments();
@@ -123,4 +123,3 @@ orderSchema.pre('save', async function(next) {
 });
 
 module.exports = mongoose.model('Order', orderSchema);
-

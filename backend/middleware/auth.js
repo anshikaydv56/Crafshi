@@ -13,7 +13,7 @@ const auth = async (req, res, next) => {
     }
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    
+
     // Check if user still exists
     const user = await User.findById(decoded.userId);
     if (!user) {
@@ -23,7 +23,7 @@ const auth = async (req, res, next) => {
       });
     }
 
-    req.user = decoded;
+    req.user = { userId: user._id };
     next();
   } catch (error) {
     if (error.name === 'JsonWebTokenError') {
@@ -38,7 +38,7 @@ const auth = async (req, res, next) => {
         message: 'Token expired.' 
       });
     }
-    
+
     console.error('Auth middleware error:', error);
     res.status(500).json({ 
       success: false, 

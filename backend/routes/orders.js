@@ -5,8 +5,12 @@ const Cart = require("../models/Cart");
 const Product = require("../models/Product");
 const User = require("../models/User");
 const auth = require("../middleware/auth");
-
 const router = express.Router();
+const admin = require('../middleware/admin');
+const { updateOrderStatus } = require('../controllers/orderController');
+
+router.put('/:orderId/status', auth, admin, updateOrderStatus);
+
 
 // ---------------- Create New Order ---------------- //
 // @route   POST /api/orders
@@ -140,6 +144,7 @@ router.post(
     }
   }
 );
+
 
 // ---------------- Get All Orders ---------------- //
 router.get("/", auth, async (req, res) => {

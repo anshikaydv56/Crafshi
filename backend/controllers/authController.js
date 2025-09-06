@@ -13,6 +13,11 @@ exports.registerUser = async (req, res) => {
   try {
     const { name, email, password } = req.body;
 
+    // Input validation (Basic)
+    if (!name || !email || !password) {
+      return res.status(400).json({ success: false, message: "Please fill all required fields" });
+    }
+
     // Check if user already exists
     const existingUser = await User.findOne({ email });
     if (existingUser) {
@@ -35,9 +40,10 @@ exports.registerUser = async (req, res) => {
       _id: user._id,
       name: user.name,
       email: user.email,
-      token: generateToken(user._id),  // 👈 userId payload
+      token: generateToken(user._id),
     });
   } catch (error) {
+    console.error("Register User Error:", error); // Logging for debugging
     res.status(500).json({ success: false, message: "Server error", error: error.message });
   }
 };
@@ -47,6 +53,11 @@ exports.registerUser = async (req, res) => {
 exports.loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
+
+    // Input validation (Basic)
+    if (!email || !password) {
+      return res.status(400).json({ success: false, message: "Please enter email and password" });
+    }
 
     // Find user
     const user = await User.findOne({ email });
@@ -61,9 +72,10 @@ exports.loginUser = async (req, res) => {
       _id: user._id,
       name: user.name,
       email: user.email,
-      token: generateToken(user._id),  // 👈 userId payload
+      token: generateToken(user._id),
     });
   } catch (error) {
+    console.error("Login User Error:", error); // Logging for debugging
     res.status(500).json({ success: false, message: "Server error", error: error.message });
   }
 };

@@ -55,6 +55,17 @@ const productSchema = new mongoose.Schema({
       ref: 'User'
     }
   },
+
+  approved: {
+    type: Boolean,
+    default: false
+  },
+  approvalNotes: {
+    type: String,
+    maxlength: 500,
+    default: ''
+  },
+
   specifications: {
     materials: [String],
     dimensions: String,
@@ -121,13 +132,13 @@ const productSchema = new mongoose.Schema({
   timestamps: true
 });
 
-// Index for search functionality
+// Text and filter indexes for advanced search and sorting
 productSchema.index({ name: 'text', description: 'text', tags: 'text' });
 productSchema.index({ category: 1, price: 1 });
 productSchema.index({ 'seller.location': 1 });
 productSchema.index({ rating: -1 });
 
-// Calculate average rating
+// Calculate and update average rating from reviews
 productSchema.methods.calculateAverageRating = function() {
   if (this.reviews.length === 0) {
     this.rating.average = 0;

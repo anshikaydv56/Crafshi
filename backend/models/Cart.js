@@ -5,7 +5,7 @@ const cartSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
     required: true,
-    unique: true
+    unique: true  // Ek user ka ek hi cart hoga
   },
   items: [{
     product: {
@@ -36,16 +36,17 @@ const cartSchema = new mongoose.Schema({
   timestamps: true
 });
 
-// Calculate totals before saving
+// Calculate total items before save
 cartSchema.pre('save', function(next) {
   this.totalItems = this.items.reduce((total, item) => total + item.quantity, 0);
   next();
 });
 
-// Method to calculate total price (requires populated products)
+// Method to calculate total price (requires populated product with price)
 cartSchema.methods.calculateTotalPrice = function() {
   return this.items.reduce((total, item) => {
-    return total + (item.product.price * item.quantity);
+    const price = item.product?.price || 0;
+    return total + (price * item.quantity);
   }, 0);
 };
 

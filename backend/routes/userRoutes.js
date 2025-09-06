@@ -8,22 +8,24 @@ const {
   addToCart,
   removeFromCart,
   getCart,
+  updateProfile,
+  requestPasswordReset,
+  resetPassword
 } = require("../controllers/userController");
 
 const router = express.Router();
 
-/* ---------------- USER BASIC ---------------- */
-// /api/user/me
+// ---------------- USER BASIC ----------------
+// Get current logged in user info
 router.get("/me", auth, getMe);
 
-/* ---------------- CART ---------------- */
-// /api/user/cart
+// ---------------- CART ----------------
 router.get("/cart", auth, getCart);
 router.post("/cart", auth, addToCart);
 router.delete("/cart/:productId", auth, removeFromCart);
 
-/* ---------------- PROFILE ---------------- */
-// @route   GET /api/user/profile
+// ---------------- PROFILE ----------------
+// Get user profile details
 router.get("/profile", auth, async (req, res) => {
   try {
     const user = await User.findById(req.user.userId)
@@ -41,7 +43,7 @@ router.get("/profile", auth, async (req, res) => {
   }
 });
 
-// @route   PUT /api/user/profile
+// Update user profile with validation
 router.put(
   "/profile",
   auth,
@@ -53,37 +55,17 @@ router.put(
     body("address.state").optional().trim().isLength({ min: 2, max: 50 }),
     body("address.pincode").optional().matches(/^[0-9]{6}$/),
   ],
-  async (req, res) => {
-    try {
-      const errors = validationResult(req);
-      if (!errors.isEmpty()) {
-        return res.status(400).json({
-          success: false,
-          message: "Validation failed",
-          errors: errors.array(),
-        });
-      }
-
-      const updates = req.body;
-      const user = await User.findByIdAndUpdate(req.user.userId, updates, {
-        new: true,
-        runValidators: true,
-      });
-
-      res.json({
-        success: true,
-        message: "Profile updated successfully",
-        data: user,
-      });
-    } catch (error) {
-      console.error("Update profile error:", error);
-      res.status(500).json({ success: false, message: "Server error" });
-    }
-  }
+  updateProfile
 );
 
-/* ---------------- WISHLIST ---------------- */
-// Add to wishlist
+// Password reset request
+router.post('/password-reset-request', requestPasswordReset);
+
+// Password reset
+router.post('/password-reset', resetPassword);
+
+// ---------------- WISHLIST ----------------
+// Add product to wishlist
 router.post("/wishlist/:productId", auth, async (req, res) => {
   try {
     const { productId } = req.params;
@@ -109,7 +91,7 @@ router.post("/wishlist/:productId", auth, async (req, res) => {
   }
 });
 
-// Remove from wishlist
+// Remove product from wishlist
 router.delete("/wishlist/:productId", auth, async (req, res) => {
   try {
     const { productId } = req.params;
@@ -141,7 +123,7 @@ router.get("/wishlist", auth, async (req, res) => {
   }
 });
 
-/* ---------------- DASHBOARD ---------------- */
+// ---------------- DASHBOARD ----------------
 router.get("/dashboard", auth, async (req, res) => {
   try {
     const user = await User.findById(req.user.userId)
