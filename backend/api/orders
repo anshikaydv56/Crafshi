@@ -1,0 +1,11 @@
+{
+  "shippingAddress": {
+    "name": "Test User",
+    "phone": "9876543210",
+    "street": "Test Street",
+    "city": "Test City",
+    "state": "UP",
+    "pincode": "123456"
+  },
+  "paymentMethod": "cod"
+}
