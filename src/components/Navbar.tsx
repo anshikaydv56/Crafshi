@@ -25,7 +25,7 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-3 hover-lift">
+          <Link to="/" className="flex items-center space-x-3">
             <div className="relative">
               <Sparkles className="h-10 w-10 text-amber-600" />
               <div className="absolute -top-1 -right-1 w-4 h-4 bg-gradient-to-r from-amber-400 to-orange-500 rounded-full animate-pulse"></div>
@@ -37,14 +37,14 @@ const Navbar = () => {
           <div className="hidden lg:flex items-center space-x-8">
             <Link 
               to="/" 
-              className="text-amber-800 hover:text-amber-600 font-medium transition-all duration-300 hover:scale-105"
+              className="text-amber-800 hover:text-amber-100 font-medium transition-all duration-300 hover:scale-105 hover:bg-amber-800 p-2 rounded-md hover:shadow-md"
             >
               Home
             </Link>
             
             {/* Categories Dropdown */}
             <div className="relative group">
-              <button className="text-amber-800 hover:text-amber-600 font-medium transition-all duration-300 hover:scale-105">
+              <button className="text-amber-800 hover:text-amber-100 font-medium transition-all duration-300 hover:scale-105 hover:bg-amber-800 p-2 rounded-md hover:shadow-md">
                 Collections
               </button>
               <div className="absolute top-full left-0 mt-2 w-64 glass-effect rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
@@ -53,7 +53,7 @@ const Navbar = () => {
                     <Link
                       key={category}
                       to={`/category/${category.toLowerCase()}`}
-                      className="block px-4 py-3 text-amber-700 hover:text-amber-900 hover:bg-amber-100/50 rounded-lg transition-all duration-200"
+                      className="block px-4 py-3 text-amber-700 hover:text-amber-100 hover:bg-amber-800 shadow-md rounded-lg transition-all duration-200"
                     >
                       {category}
                     </Link>
@@ -65,7 +65,7 @@ const Navbar = () => {
             {/* ✅ About page link */}
             <Link 
             to="/about"
-            className="text-amber-800 hover:text-amber-600 font-medium transition-all duration-300 hover:scale-105"
+            className="text-amber-800 hover:text-amber-100 font-medium transition-all duration-300 hover:scale-105 hover:bg-amber-800 p-2 rounded-md hover:shadow-md"
             >
               About
               </Link>
@@ -73,7 +73,7 @@ const Navbar = () => {
             {/* ✅ Contact scroll button */}
             <a 
               href="#contact"
-              className="text-amber-800 hover:text-amber-600 font-medium transition-all duration-300 hover:scale-105"
+              className="text-amber-800 hover:text-amber-100 font-medium transition-all duration-300 hover:scale-105 hover:bg-amber-800 p-2 rounded-md hover:shadow-md"
             >
               Contact
             </a>

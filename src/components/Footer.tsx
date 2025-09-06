@@ -91,19 +91,19 @@ const Footer = () => {
                 <MapPin className="h-5 w-5 text-amber-300 mt-1 flex-shrink-0" />
                 <div>
                   <p className="text-amber-200">
-                    123 Heritage Street<br />
-                    Craft District, New Delhi<br />
-                    India - 110001
+                    Shankarpuri<br />
+                    Shikohabad, Uttar Pradesh<br />
+                    India - 283135
                   </p>
                 </div>
               </div>
               <div className="flex items-center space-x-3">
                 <Phone className="h-5 w-5 text-amber-300 flex-shrink-0" />
-                <p className="text-amber-200">+91 98765 43210</p>
+                <p className="text-amber-200">+91 9005956505</p>
               </div>
               <div className="flex items-center space-x-3">
                 <Mail className="h-5 w-5 text-amber-300 flex-shrink-0" />
-                <p className="text-amber-200">hello@crafshi.com</p>
+                <p className="text-amber-200">anshikaydv06@gmail.com</p>
               </div>
             </div>
           </div>

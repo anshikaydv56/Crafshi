@@ -1,82 +1,72 @@
-import React, { createContext, useContext, useState } from 'react';
-import { cartAPI } from '../config/api.js';
+import React, { createContext, useContext, useState, useEffect } from 'react';
+import api from '../config/api'; // Axios instance
 
-interface CartItem {
-  id: number;
+export interface CartItem {
+  id: string;
   name: string;
   price: number;
   image: string;
-  seller: { name: string; location: string };
+  seller: string;
+  location: string;
   quantity: number;
 }
 
 interface CartContextType {
   cartItems: CartItem[];
-  addToCart: (productId: number, quantity?: number) => Promise<void>;
-  removeFromCart: (productId: number) => Promise<void>;
-  updateQuantity: (productId: number, quantity: number) => Promise<void>;
+  addToCart: (item: CartItem) => Promise<void>;
+  removeFromCart: (id: string) => Promise<void>;
+  updateQuantity: (id: string, quantity: number) => Promise<void>;
   getCartTotal: () => number;
-  clearCart: () => Promise<void>;
-  loading: boolean;
-  fetchCart: () => Promise<void>;
+  clearCart: () => void;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
-  const [loading, setLoading] = useState(false);
 
   const fetchCart = async () => {
     try {
-      const response = await cartAPI.get();
-      const formattedItems = response.data.items.map(item => ({
-        id: item.product._id,
-        name: item.product.name,
-        price: item.product.price,
-        image: item.product.images[0]?.url || '',
-        seller: item.product.seller,
-        quantity: item.quantity
-      }));
-      setCartItems(formattedItems);
+      const res = await api.get('/api/cart');
+      setCartItems(res.data.items || []);
     } catch (error) {
       console.error('Failed to fetch cart:', error);
     }
   };
 
-  const addToCart = async (productId: number, quantity = 1) => {
-    setLoading(true);
+  useEffect(() => {
+    fetchCart();
+  }, []);
+
+  const addToCart = async (item: CartItem) => {
     try {
-      await cartAPI.add(productId, quantity);
-      await fetchCart();
+      const exists = cartItems.find((i) => i.id === item.id);
+      if (exists) {
+        await updateQuantity(item.id, exists.quantity + item.quantity);
+      } else {
+        await api.post('/api/cart', item);
+        setCartItems([...cartItems, item]);
+      }
     } catch (error) {
-      throw error;
-    } finally {
-      setLoading(false);
+      console.error('Add to cart failed:', error);
     }
   };
 
-  const removeFromCart = async (productId: number) => {
-    setLoading(true);
+  const removeFromCart = async (id: string) => {
     try {
-      await cartAPI.remove(productId);
-      await fetchCart();
+      await api.delete(`/api/cart/${id}`);
+      setCartItems(cartItems.filter((item) => item.id !== id));
     } catch (error) {
-      throw error;
-    } finally {
-      setLoading(false);
+      console.error('Remove from cart failed:', error);
     }
   };
 
-  const updateQuantity = async (productId: number, quantity: number) => {
-    setLoading(true);
+  const updateQuantity = async (id: string, quantity: number) => {
     try {
-      await cartAPI.update(productId, quantity);
-      await fetchCart();
+      await api.put(`/api/cart/${id}`, { quantity });
+      setCartItems(cartItems.map((item) => (item.id === id ? { ...item, quantity } : item)));
     } catch (error) {
-      throw error;
-    } finally {
-      setLoading(false);
+      console.error('Update quantity failed:', error);
     }
   };
 
@@ -84,37 +74,12 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     return cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
   };
 
-  const clearCart = async () => {
-    setLoading(true);
-    try {
-      await cartAPI.clear();
-      setCartItems([]);
-    } catch (error) {
-      throw error;
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  // Fetch cart on mount
-  React.useEffect(() => {
-    const token = localStorage.getItem('crafshi_token');
-    if (token) {
-      fetchCart();
-    }
-  }, []);
+  const clearCart = () => setCartItems([]);
 
   return (
-    <CartContext.Provider value={{
-      cartItems,
-      addToCart,
-      removeFromCart,
-      updateQuantity,
-      getCartTotal,
-      clearCart,
-      loading,
-      fetchCart
-    }}>
+    <CartContext.Provider
+      value={{ cartItems, addToCart, removeFromCart, updateQuantity, getCartTotal, clearCart }}
+    >
       {children}
     </CartContext.Provider>
   );
@@ -122,8 +87,6 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
 export const useCart = () => {
   const context = useContext(CartContext);
-  if (context === undefined) {
-    throw new Error('useCart must be used within a CartProvider');
-  }
+  if (!context) throw new Error('useCart must be used within a CartProvider');
   return context;
 };

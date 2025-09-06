@@ -105,7 +105,7 @@ const Home = () => {
       </section>
 
       {/* Categories Section */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-5 p-8">
   {categories.map((category, index) => (
     <Link
       key={category.name}
@@ -229,7 +229,7 @@ const Home = () => {
               <img
                 src="https://png.pngtree.com/thumb_back/fw800/background/20231226/pngtree-assorted-ceramic-vases-and-abstract-doodle-objects-exploring-pottery-through-various-image_13878826.png"
                 alt="Artisan at work"
-                className="w-full rounded-2xl shadow-2xl"
+                className="w-full rounded-2xl shadow-2xl glass-effect overflow-hidden hover-lift"
               />
               <div className="absolute -bottom-6 -left-6 glass-effect p-6 rounded-xl">
                 <p className="text-2xl font-bold text-amber-900">50+</p>

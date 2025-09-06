@@ -2,8 +2,9 @@ import React from "react";
 
 const About: React.FC = () => {
   return (
+  <div className="bg-amber-200/30">
     <div className="pt-24 pb-16 px-6 max-w-5xl mx-auto">
-      <h1 className="text-4xl font-bold text-amber-800 mb-6">About Us</h1>
+      <h1 className="text-4xl font-bold text-amber-800 mb-6 mt-8 text-center">About Us</h1>
       <p className="text-lg text-gray-700 leading-relaxed mb-6">
         Welcome to <span className="font-semibold">Crafshi</span>! We are passionate about bringing 
         you the finest collection of handmade crafts, pottery, jewelry, textiles, and more. 
@@ -27,6 +28,7 @@ const About: React.FC = () => {
         </div>
       </div>
     </div>
+  </div>
   );
 };
 
